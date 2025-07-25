@@ -4,12 +4,13 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Winapi.ShellAPI, IdHTTP, System.JSON, TlHelp32;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Winapi.ShellAPI, System.Net.HttpClient, System.Net.URLClient, System.Net.HttpClientComponent,
+  System.JSON, TlHelp32;
 
 const
   LOCAL_VERSION_FILE = 'version.json';
-  REMOTE_VERSION_URL = 'https://tuservidor.com/updates/version.json';
-  REMOTE_INSTALLER_URL = 'https://tuservidor.com/updates/Calculadora_Setup.exe';
+  REMOTE_VERSION_URL = 'https://githubstratzone.github.io/ProyectoDevops/docs/version.json';
+  REMOTE_INSTALLER_URL = 'https://githubstratzone.github.io/ProyectoDevops/docs/Calculadora_Setup.exe';
   LOCAL_INSTALLER_FILE = 'Calculadora_Setup.exe';
   MAIN_APP_NAME = 'Calculadora.exe';
 
@@ -82,14 +83,14 @@ end;
 
 function TfrmUpdater.GetRemoteVersion: string;
 var
-  http: TIdHTTP;
-  jsonStr: string;
+  http: TNetHTTPClient;
+  response: string;
   json: TJSONObject;
 begin
-  http := TIdHTTP.Create(nil);
+  http := TNetHTTPClient.Create(nil);
   try
-    jsonStr := http.Get(REMOTE_VERSION_URL);
-    json := TJSONObject.ParseJSONValue(jsonStr) as TJSONObject;
+    response := http.Get(REMOTE_VERSION_URL).ContentAsString(TEncoding.UTF8);
+    json := TJSONObject.ParseJSONValue(response) as TJSONObject;
     if Assigned(json) then
       Result := json.GetValue<string>('version')
     else
@@ -123,16 +124,17 @@ end;
 
 procedure TfrmUpdater.DownloadInstaller;
 var
-  http: TIdHTTP;
-  fs: TFileStream;
+  http: TNetHTTPClient;
+  response: IHTTPResponse;
+  fileStream: TFileStream;
 begin
-  http := TIdHTTP.Create(nil);
+  http := TNetHTTPClient.Create(nil);
   try
-    fs := TFileStream.Create(LOCAL_INSTALLER_FILE, fmCreate);
+    fileStream := TFileStream.Create(LOCAL_INSTALLER_FILE, fmCreate);
     try
-      http.Get(REMOTE_INSTALLER_URL, fs);
+      response := http.Get(REMOTE_INSTALLER_URL, fileStream);
     finally
-      fs.Free;
+      fileStream.Free;
     end;
   finally
     http.Free;

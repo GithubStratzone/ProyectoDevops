@@ -2,8 +2,8 @@ object frmUpdater: TfrmUpdater
   Left = 0
   Top = 0
   Caption = 'frmUpdater'
-  ClientHeight = 441
-  ClientWidth = 624
+  ClientHeight = 439
+  ClientWidth = 616
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
