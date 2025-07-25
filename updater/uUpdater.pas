@@ -9,8 +9,8 @@ uses
 
 const
   LOCAL_VERSION_FILE = 'version.json';
-  REMOTE_VERSION_URL = 'https://githubstratzone.github.io/ProyectoDevops/docs/version.json';
-  REMOTE_INSTALLER_URL = 'https://githubstratzone.github.io/ProyectoDevops/docs/Calculadora_Setup.exe';
+  REMOTE_VERSION_URL = 'https://githubstratzone.github.io/ProyectoDevops/updates/version.json';
+  REMOTE_INSTALLER_URL = 'https://githubstratzone.github.io/ProyectoDevops/updates/Calculadora_Setup.exe';
   LOCAL_INSTALLER_FILE = 'Calculadora_Setup.exe';
   MAIN_APP_NAME = 'Calculadora.exe';
 
