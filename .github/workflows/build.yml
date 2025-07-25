@@ -13,7 +13,10 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Crear carpeta bin si no existe
-      run: mkdir bin
+      run: run: |
+        if (!(Test-Path bin)) {
+          mkdir bin
+        }
 
     - name: Instalar Inno Setup
       run: |
