@@ -29,7 +29,9 @@ jobs:
 
     - name: Copiar instalador y version.json a updates
       run: |
-        mkdir updates
+        if (!(Test-Path updates)) {
+          mkdir updates
+        }
         copy bin\Calculadora_Setup.exe updates\
         copy version.json updates\
 
