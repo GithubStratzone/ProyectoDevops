@@ -21,7 +21,8 @@ jobs:
         Start-Process .\is.exe -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/SP-" -Wait
 
     - name: Compilar instalador con Inno Setup
-      run: '"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" install\Calculadora.iss'
+      run: |
+        & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "install\Calculadora.iss"
 
     - name: Copiar instalador y version.json a updates
       run: |
