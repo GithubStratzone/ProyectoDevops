@@ -13,11 +13,11 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Crear carpeta bin si no existe
-      run: run: |
+      run: |
         if (!(Test-Path bin)) {
           mkdir bin
         }
-
+        
     - name: Instalar Inno Setup
       run: |
         Invoke-WebRequest -Uri "https://jrsoftware.org/download.php/is.exe" -OutFile is.exe
